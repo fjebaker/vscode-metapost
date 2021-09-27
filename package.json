@@ -1,0 +1,29 @@
+{
+    "name": "metapost-syntax",
+    "displayName": "metapost-syntax",
+    "description": "Syntax Highlighting for MetaPost (TeX).",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "mp",
+            "aliases": ["MetaPost", "mp"],
+            "extensions": [".mp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "mp",
+            "scopeName": "source.mp",
+            "path": "./syntaxes/mp.tmLanguage.json",
+            "embeddedLanguages": {
+                "meta.embedded.block.latex": "source.js",
+                "meta.embedded.inline.latex": "source.tex"
+            }
+        }]
+    }
+}

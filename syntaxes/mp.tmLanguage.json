@@ -1,0 +1,139 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "MetaPost",
+	"fileTypes": [
+		"mp"
+	],
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "source.latex"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.flow.mp",
+					"match": "\\b(if|fi|for|endfor|end|beginfig|endfig|def|vardef|enddef)\\b"
+				},
+				{
+					"name": "support.type.mp",
+					"match": "\\b(path|pair|numeric|picture|expr)\\b"
+				},
+				{
+					"name": "keyword.control.builtin.mp",
+					"match": "\\b(draw|withpen|scaled|shifted|cycle)\\b"
+				},
+				{
+					"name": "keyword.other.input.mp",
+					"match": "\\binput\\s*(\\w+)\\b",
+					"captures": {
+						"1": {
+							"name": "support.constant.package.mp"
+						}
+					}
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.mp",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.mp",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "meta.embedded.inline.latex",
+					"begin": "\\bbtex\\b",
+					"end": "\\betex\\b"
+				},
+				{
+					"name": "meta.embedded.block.latex",
+					"begin": "\\bverbatimtex\\b",
+					"end": "\\betex\\b"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "constant.character.reserved.mp",
+					"match": "\\b(beveled|bp|butt|cc|cm|dd|epsilon|in|infinity|miltered|mm|pc|pt|rounded|squared)\\b"
+				},
+				{
+					"name": "constant.character.directional.mp",
+					"match": "\\b(up|right|down|left)\\b"
+				},
+				{
+					"name": "support.function.call.mp",
+					"match": "[a-zA-Z]+\\s?\\("
+				},
+				{
+					"name": "support.class.namespace.mp",
+					"match": "\\b[a-zA-Z]+\\."
+				},
+				{
+					"name": "variable.mp",
+					"match": "[_a-zA-Z]+"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.mp",
+					"match": "\\b[0-9]+(\\.[0-9]+)?"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.arithmetic.mp",
+					"match": "(&|\\*\\*|\\*|\\+-\\+|-|\\+|\\+\\+|/)"
+				},
+				{
+					"name": "keyword.operator.assign.mp",
+					"match": "(=|:=)"
+				},
+				{
+					"name": "keyword.operator.drawing.mp",
+					"match": "(\\.\\.|--)"
+				},
+				{
+					"name": "keyword.operator.comparison.mp",
+					"match": "(<|>|<=|>=|<>)"
+				}
+			]
+		},
+		"comments": {
+			"name":	"comment.line",
+			"match": "%.*$"
+		}
+	},
+	"scopeName": "source.mp"
+}
