@@ -9,6 +9,9 @@
 			"include": "#keywords"
 		},
 		{
+			"include": "#comments"
+		},
+		{
 			"include": "#strings"
 		},
 		{
@@ -19,12 +22,6 @@
 		},
 		{
 			"include": "#variables"
-		},
-		{
-			"include": "#comments"
-		},
-		{
-			"include": "source.latex"
 		}
 	],
 	"repository": {
@@ -32,22 +29,37 @@
 			"patterns": [
 				{
 					"name": "keyword.control.flow.mp",
-					"match": "\\b(if|fi|for|endfor|end|beginfig|endfig|def|vardef|enddef)\\b"
+					"match": "\\b(if|else|fi|for|within|step|upto|downto|until|endfor|end|beginfig|endfig|def|vardef|enddef|and|of|or)\\b"
+				},
+				{
+					"name": "keyword.transformer.mp",
+					"match": "\\b(rotated|scaled|shifted|slanted|transformed|xscaled|yscaled|zscaled|reflectedabout|rotatedaround)\\b"
+				},
+				{
+					"name": "keyword.control.qualifier.mp",
+					"match": "\\b(dashed|evenly|withpen|pencircle)\\b"
 				},
 				{
 					"name": "support.type.mp",
-					"match": "\\b(path|pair|numeric|picture|expr)\\b"
+					"match": "\\b(path|pair|numeric|picture|expr|string|boolean)\\b"
 				},
 				{
 					"name": "keyword.control.builtin.mp",
-					"match": "\\b(draw|withpen|scaled|shifted|cycle)\\b"
+					"match": "\\b(draw|drawarrow|fill)\\b"
 				},
 				{
-					"name": "keyword.other.input.mp",
-					"match": "\\binput\\s*(\\w+)\\b",
+					"name": "keyword.operator.mp",
+					"match": "\\b(subpath)\\b"
+				},
+				{
+					"name": "meta.input.mp",
+					"match": "\\b(input)\\s*(\\w+)\\b",
 					"captures": {
 						"1": {
-							"name": "support.constant.package.mp"
+							"name": "keyword.other.input.mp"
+						},
+						"2": {
+							"name": "meta.input.name.mp"
 						}
 					}
 				}
@@ -68,37 +80,25 @@
 				},
 				{
 					"name": "meta.embedded.inline.latex",
+					"contentName": "meta.embedded.inline.latex",
 					"begin": "\\bbtex\\b",
-					"end": "\\betex\\b"
+					"end": "\\betex\\b",
+					"patterns": [
+						{
+							"include": "text.tex.latex"
+						}
+					]
 				},
 				{
 					"name": "meta.embedded.block.latex",
+					"contentName": "meta.embedded.block.latex",
 					"begin": "\\bverbatimtex\\b",
-					"end": "\\betex\\b"
-				}
-			]
-		},
-		"variables": {
-			"patterns": [
-				{
-					"name": "constant.character.reserved.mp",
-					"match": "\\b(beveled|bp|butt|cc|cm|dd|epsilon|in|infinity|miltered|mm|pc|pt|rounded|squared)\\b"
-				},
-				{
-					"name": "constant.character.directional.mp",
-					"match": "\\b(up|right|down|left)\\b"
-				},
-				{
-					"name": "support.function.call.mp",
-					"match": "[a-zA-Z]+\\s?\\("
-				},
-				{
-					"name": "support.class.namespace.mp",
-					"match": "\\b[a-zA-Z]+\\."
-				},
-				{
-					"name": "variable.mp",
-					"match": "[_a-zA-Z]+"
+					"end": "\\betex\\b",
+					"patterns": [
+						{
+							"include": "text.tex.latex"
+						}
+					]
 				}
 			]
 		},
@@ -122,7 +122,7 @@
 				},
 				{
 					"name": "keyword.operator.drawing.mp",
-					"match": "(\\.\\.|--)"
+					"match": "(\\.\\.|\\.\\.\\.|--)"
 				},
 				{
 					"name": "keyword.operator.comparison.mp",
@@ -133,6 +133,34 @@
 		"comments": {
 			"name":	"comment.line",
 			"match": "%.*$"
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "constant.character.reserved.mp",
+					"match": "\\b(beveled|bp|butt|cc|cm|dd|epsilon|in|infinity|miltered|mm|pc|pt|rounded|squared)\\b"
+				},
+				{
+					"name": "support.function.unaryop.mp",
+					"match": "\\b(abs|angle|arclength|bbox|blackpart|bluepart|bot|bounded|ceiling|center|char|clipped|colormodel|cods|cyanpart|dashpart|decimal|dir|floor|filled|fontpart|fontsize|greenpart|greypart|hex|inverse|known|length|lft|llcorner|lrcorner|magentapart|makepath|makepen|mexp|mlog|not|oct|odd|pathpart|penpart|readfrom|redfpart|reverse|round|rt|sind|sqrt|stroked|textpart|textual|top|ulcorner|uniformdeviate|unitvector|unknown|urcorner|xpart|xxpart|xypart|yellowpart|ypart|yxpart|yypart)\\b"
+				},
+				{
+					"name": "constant.character.directional.mp",
+					"match": "\\b(up|right|down|left|cycle)\\b"
+				},
+				{
+					"name": "support.function.call.mp",
+					"match": "\\b[a-zA-Z]+(?=\\()"
+				},
+				{
+					"name": "support.class.namespace.mp",
+					"match": "\\b[a-zA-Z]+\\."
+				},
+				{
+					"name": "variable.mp",
+					"match": "[_a-zA-Z]+"
+				}
+			]
 		}
 	},
 	"scopeName": "source.mp"

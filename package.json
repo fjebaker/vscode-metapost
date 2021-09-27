@@ -21,8 +21,8 @@
             "scopeName": "source.mp",
             "path": "./syntaxes/mp.tmLanguage.json",
             "embeddedLanguages": {
-                "meta.embedded.block.latex": "source.js",
-                "meta.embedded.inline.latex": "source.tex"
+                "meta.embedded.block.latex": "latex",
+                "meta.embedded.inline.latex": "latex"
             }
         }]
     }
