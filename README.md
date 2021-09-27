@@ -1,4 +1,4 @@
-# metapost-syntax
+# vscode-metapost
 
 Syntax highlighting for the MetaPost TeX drawing language.
 
@@ -6,7 +6,7 @@ Syntax highlighting for the MetaPost TeX drawing language.
 
 Adds colorized syntax highlighting to any `.mp` file. Embedded LaTeX, either via `btex`/`etex` blocks, or `verbatimtex` are automatically LaTeX highlighted.
 
-![feature X](examples/example-highlight.png)
+![feature X](images/example-highlight.png)
 
 ## Known Issues
 
