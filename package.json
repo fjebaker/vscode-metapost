@@ -34,24 +34,23 @@
         "commands": [
 			{
 				"command": "metapost.run",
-				"title": "Metapost: Run",
-                "when": "editorLangId == mp"
+				"title": "Metapost: Run"
 			},
             {
 				"command": "metapost.cleanDir",
-				"title": "Metapost: Clean Directory",
-                "when": "editorLangId == mp"
+				"title": "Metapost: Clean Directory"
 			},
             {
                 "command": "metapost.previewSide",
-                "title": "Metapost: Preview to the Side",
-                "when": "editorLangId == mp"
+                "title": "Metapost: Preview to the Side"
             }
 		]
     },
 
     "activationEvents": [
-        "onCommand:metapost.run"
+        "onCommand:metapost.run",
+        "onCommand:metapost.cleanDir",
+        "onCommand:metapost.previewSide"
 	],
     "main": "./out/extension",
     "scripts": {
