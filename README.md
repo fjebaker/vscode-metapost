@@ -1,12 +1,18 @@
 # vscode-metapost
 
-Syntax highlighting for the MetaPost TeX drawing language.
+Language support for the MetaPost TeX drawing language.
 
 ## Features
 
-Adds colorized syntax highlighting to any `.mp` file. Embedded LaTeX, either via `btex`/`etex` blocks, or `verbatimtex` are automatically LaTeX highlighted.
+Currently available features:
 
-![feature X](images/example-highlight.png)
+- Adds colourized syntax highlighting to any `.mp` file. Embedded LaTeX, either via `btex`/`etex` blocks, or `verbatimtex` are automatically LaTeX highlighted.
+
+![feature colourized](images/example-highlight.png)
+
+- Preview image to the side, with update on save
+
+![feature preview](images/example-preview.png)
 
 ## Known Issues
 
