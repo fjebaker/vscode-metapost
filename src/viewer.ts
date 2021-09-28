@@ -95,7 +95,7 @@ async function updatePreview(p: Previewer) : Promise<string | undefined> {
 function newPreviewer(context : vscode.ExtensionContext ) : Previewer | undefined {
 
     const srcDoc = vscode.window.activeTextEditor?.document; 
-    const cwd = srcDoc ? vscode.workspace.getWorkspaceFolder(srcDoc.uri)?.uri : undefined;
+    const cwd = srcDoc ? path.parse(srcDoc.fileName).dir : undefined;
 
     if (cwd) {
 
@@ -119,7 +119,7 @@ function newPreviewer(context : vscode.ExtensionContext ) : Previewer | undefine
         let previewer : Previewer = {
             panel: panel, 
             srcFile: srcFileName,
-            workDir: cwd.fsPath,
+            workDir: cwd,
             previewFile: undefined
         };
 

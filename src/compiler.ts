@@ -17,7 +17,7 @@ async function compileFile(): Promise<void> {
     if (editor) {
         const srcDocument = editor.document;
         const srcPath = path.parse(srcDocument.fileName);
-        const cwd = vscode.workspace.getWorkspaceFolder(srcDocument.uri)?.uri.fsPath;
+        const cwd = srcPath.dir;
 
         if (cwd) {
             await buildFigureFile(cwd, srcPath.base);

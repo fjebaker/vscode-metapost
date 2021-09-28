@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 		})
 	);
 
-	logChannel.show();
+	// logChannel.show();
 }
 
 export function deactivate() {
