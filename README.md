@@ -20,6 +20,10 @@ Macro invocation highlighting does not yet work as intended, thus has been left 
 
 ## Release Notes
 
+### 0.1.1
+
+Bugfix: registering activation events
+
 ### 0.1.0
 
 Minimally working Metapost previewer, using VSCode webviews.

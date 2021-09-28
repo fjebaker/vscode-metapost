@@ -2,6 +2,10 @@
 
 All notable changes to the "vscode-metapost" extension will be documented in this file.
 
+### 0.1.1
+
+Bugfix: registering activation events
+
 ### 0.1.0
 
 Minimally working Metapost previewer, using VSCode webviews.
