@@ -16,8 +16,9 @@ interface FigureInfo {
 
 interface Previewer {
     panel: vscode.WebviewPanel | undefined;
-    srcFile : string | undefined;
+    srcFile : string;
     workDir : string;
+    previewFile : string | undefined;
 };
 
 /**
@@ -39,48 +40,45 @@ function configureHooks(p: Previewer, context: vscode.ExtensionContext) : vscode
     return listener;
 }
 
-function makeTempFigureFile(workDir : string) : FigureInfo | undefined {
-    const document = vscode.window.activeTextEditor?.document;
-    if (document) {
-
-        let content = document.getText();
-
-        content = processContent(content);
-
-        const fileName = path.join(workDir, "preview.mp");
-        fs.writeFileSync(
-            fileName,
-            content
-        );
-
-        return {
-            wd: workDir,
-            srcFileName: "preview.mp",
-            outPath: undefined,
-            figNumber: 0
+async function getPreviewChoice(files: string[]) : Promise<string | undefined> {
+    let images = files.filter( i => path.parse(i).ext != ".log");
+    const result = await vscode.window.showQuickPick(
+        images,
+        {
+            placeHolder: "Select a figure to use in the preview.",
         }
-
-    } else {
-
-        logChannel.appendLine("No document open.");
-
-        return undefined;
-    }
+    );
+    return result;
 }
 
 async function updatePreview(p: Previewer) : Promise<string | undefined> {
 
     // do the build
-    const fileInfo : FigureInfo | undefined = makeTempFigureFile(p.workDir);
-    if (fileInfo && p.panel) {
+    if (p.panel) {
 
         logChannel.appendLine("Updating preview:");
 
-        const buildOut : compiler.BuildOutput = await compiler.buildFigureFile(fileInfo.wd, fileInfo.srcFileName);
-
+        const buildOut : compiler.BuildOutput = await compiler.buildFigureFile(p.workDir, p.srcFile);
+        
         if (! buildOut.err) {
             logChannel.appendLine(` - messaging new image to webview.`);
-            updateImageUri(p.panel, path.join(fileInfo.wd, "tmp_fig_0.svg"));
+
+            if (! p.previewFile) {
+
+                const fileChoice = await getPreviewChoice(buildOut.outputFiles);
+
+                if (! fileChoice) {
+
+                    updateErrorLog(p.panel, "Bad file choice for preview. Close this tab and try again.");
+                    return undefined;
+
+                } else {
+                    p.previewFile = fileChoice;
+                }
+            }
+
+            updateImageUri(p.panel, path.join(p.workDir, p.previewFile));
+
         } else {
             logChannel.appendLine(` - messaging error to webview.`);
             updateErrorLog(p.panel, buildOut.stdout);
@@ -96,11 +94,12 @@ async function updatePreview(p: Previewer) : Promise<string | undefined> {
 
 function newPreviewer(context : vscode.ExtensionContext ) : Previewer | undefined {
 
-    const workDir = context.storageUri;
+    const srcDoc = vscode.window.activeTextEditor?.document; 
+    const cwd = srcDoc ? vscode.workspace.getWorkspaceFolder(srcDoc.uri)?.uri : undefined;
 
-    if (workDir) {
+    if (cwd) {
 
-        logChannel.appendLine(`Working directory: ${workDir.toString()}.`);
+        logChannel.appendLine(`Working directory: ${cwd.toString()}.`);
 
         // create panel
         const panel = vscode.window.createWebviewPanel(
@@ -108,22 +107,20 @@ function newPreviewer(context : vscode.ExtensionContext ) : Previewer | undefine
             'Metapost Preview',
             vscode.ViewColumn.Two,
             {
-                // allow loading from temporary directory
-                localResourceRoots: [
-                    workDir
-                ],
                 enableScripts: true
             }
         );
 
-        fs.mkdirSync(workDir.fsPath, {recursive: true});
 
         panel.webview.html = getWebviewContent();
 
+        let srcFileName = srcDoc ? path.parse(srcDoc.fileName).base : "";
+
         let previewer : Previewer = {
             panel: panel, 
-            srcFile: vscode.window.activeTextEditor?.document.fileName,
-            workDir: workDir.fsPath
+            srcFile: srcFileName,
+            workDir: cwd.fsPath,
+            previewFile: undefined
         };
 
         let onSave = configureHooks(previewer, context);

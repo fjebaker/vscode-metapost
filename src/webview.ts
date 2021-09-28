@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 
 function updateImageUri(panel : vscode.WebviewPanel, image_path : string ) : void {
-    console.log("Displaying image at");
-    console.log(image_path);
     
     const onDiskPath = vscode.Uri.file(
         image_path
@@ -14,7 +12,6 @@ function updateImageUri(panel : vscode.WebviewPanel, image_path : string ) : voi
 }
 
 function updateErrorLog(panel : vscode.WebviewPanel, errlog : string) : void {
-    console.log("POSTED ERROR")
     panel.webview.postMessage({command: 'error', content : errlog});
 }
 
@@ -30,6 +27,7 @@ function getWebviewContent() : string {
     <div style="text-align: center; padding: 20px; background-color:#FFFFFF;">
         <img id="display" src="" width="800px"/>
     </div>
+    <div id="filename"> </div>
     <pre style="width=100%;">
         <code style="width=100%;" id="errorlog"> </code>
     </pre>
@@ -38,6 +36,7 @@ function getWebviewContent() : string {
         const vscode = acquireVsCodeApi();
         const prev_state = vscode.getState();
         const display = document.getElementById('display');
+        const filename = document.getElementById('filename');
         const errorLog = document.getElementById('errorlog');
         
         var current_uri = prev_state ? prev_state.current_uri : undefined;
@@ -46,6 +45,7 @@ function getWebviewContent() : string {
         let updateImage = () => {
             const timestamp = new Date().getTime();
             display.src = current_uri + "?t=" + timestamp;
+            filename.innerHTML = display.src;
         };
         
         let updateError = () => {
