@@ -8,7 +8,7 @@
         "type": "git",
         "url": "https://github.com/fjebaker/vscode-metapost"
     },
-    "version": "0.1.0",
+    "version": "0.1.2",
     "engines": {
         "vscode": "^1.60.0"
     },
@@ -34,24 +34,23 @@
         "commands": [
 			{
 				"command": "metapost.run",
-				"title": "Metapost: Run",
-                "when": "editorLangId == mp"
+				"title": "Metapost: Run"
 			},
             {
 				"command": "metapost.cleanDir",
-				"title": "Metapost: Clean Directory",
-                "when": "editorLangId == mp"
+				"title": "Metapost: Clean Directory"
 			},
             {
                 "command": "metapost.previewSide",
-                "title": "Metapost: Preview to the Side",
-                "when": "editorLangId == mp"
+                "title": "Metapost: Preview to the Side"
             }
 		]
     },
 
     "activationEvents": [
-        "onCommand:metapost.run"
+        "onCommand:metapost.run",
+        "onCommand:metapost.cleanDir",
+        "onCommand:metapost.previewSide"
 	],
     "main": "./out/extension",
     "scripts": {
