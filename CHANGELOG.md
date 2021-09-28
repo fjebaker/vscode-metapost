@@ -2,6 +2,10 @@
 
 All notable changes to the "vscode-metapost" extension will be documented in this file.
 
+### 0.1.3
+
+Set working directory to the file directory, not the workspace.
+
 ### 0.1.2
 
 Removed the sandbox (caused too many issues if user is importing custom libraries). Also added quick selection for when multiple figures created.
