@@ -2,6 +2,10 @@
 
 All notable changes to the "vscode-metapost" extension will be documented in this file.
 
+### 0.1.4
+
+Updated syntax highlighting keywords.
+
 ### 0.1.3
 
 Set working directory to the file directory, not the workspace.

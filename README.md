@@ -18,7 +18,17 @@ Currently available features:
 
 Macro invocation highlighting does not yet work as intended, thus has been left out.
 
+**Please note** I am writing this extension as I learn MetaPost; specifically the grammar used in the syntax highlighting will be incomplete / error prone.
+
+Please get in contact with me to request changes, or submit a PR on the GitHub.
+
+Thank you :~)
+
 ## Release Notes
+
+### 0.1.4
+
+Updated syntax highlighting keywords.
 
 ### 0.1.3
 
