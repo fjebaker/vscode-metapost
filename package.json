@@ -10,62 +10,75 @@
     },
     "version": "0.1.5",
     "engines": {
-        "vscode": "^1.60.0"
+        "vscode": "^1.74.0"
     },
     "categories": [
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "mp",
-            "aliases": ["MetaPost", "mp"],
-            "extensions": [".mp"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "mp",
-            "scopeName": "source.mp",
-            "path": "./syntaxes/mp.tmLanguage.json",
-            "embeddedLanguages": {
-                "meta.embedded.block.latex": "latex",
-                "meta.embedded.inline.latex": "latex"
-            }
-        }],
-        "commands": [
-			{
-				"command": "metapost.run",
-				"title": "Metapost: Run"
-			},
+        "languages": [
             {
-				"command": "metapost.cleanDir",
-				"title": "Metapost: Clean Directory"
-			},
+                "id": "mp",
+                "aliases": [
+                    "MetaPost",
+                    "mp"
+                ],
+                "extensions": [
+                    ".mp"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mp",
+                "scopeName": "source.mp",
+                "path": "./syntaxes/mp.tmLanguage.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.latex": "latex",
+                    "meta.embedded.inline.latex": "latex"
+                }
+            }
+        ],
+        "commands": [
+            {
+                "command": "metapost.run",
+                "title": "Metapost: Run"
+            },
+            {
+                "command": "metapost.cleanDir",
+                "title": "Metapost: Clean Directory"
+            },
             {
                 "command": "metapost.previewSide",
                 "title": "Metapost: Preview to the Side"
             }
-		]
+        ]
     },
     "main": "./out/extension",
     "scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js",
+        "package": "vsce package"
+    },
     "devDependencies": {
-		"@types/vscode": "^1.60.0",
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@typescript-eslint/eslint-plugin": "^4.31.1",
-		"@typescript-eslint/parser": "^4.31.1",
-		"eslint": "^7.32.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.1",
-		"typescript": "^4.4.3",
-		"@vscode/test-electron": "^1.6.2"
-	}
+        "@types/glob": "^7.1.4",
+        "@types/mocha": "^9.0.0",
+        "@types/node": "14.x",
+        "@types/vscode": "^1.60.0",
+        "@typescript-eslint/eslint-plugin": "^4.31.1",
+        "@typescript-eslint/parser": "^4.31.1",
+        "@vscode/test-electron": "^1.6.2",
+        "eslint": "^7.32.0",
+        "glob": "^7.1.7",
+        "mocha": "^9.1.1",
+        "typescript": "^4.4.3"
+    },
+    "dependencies": {
+        "@vscode/vsce": "^2.20.1"
+    }
 }
