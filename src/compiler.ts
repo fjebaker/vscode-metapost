@@ -57,11 +57,10 @@ async function extractOutputFiles(wd : string, output: string) : Promise<string[
 
     return new Promise<string[]>((resolve, reject) => {
         const flsPath = path.join(wd, path.parse(output).name + ".fls");
-        logChannel.appendLine(`Reading file list from ${flsPath}.`);
         fs.readFile(flsPath, (err, data) => {
             const content = data.toString();
-            const matches = content.match(/OUTPUT (\w+.\w+)/g);
-
+            const matches = content.match(/OUTPUT (.+\.\w+)/g);
+            logChannel.appendLine(`INFO: direct regex matches "${matches}"`);
             if (matches) {
                 resolve(
                     matches.map(i => i.replace(/^OUTPUT /, ""))
