@@ -6,13 +6,6 @@ import { getWebviewContent, updateErrorLog, updateImageUri } from './webview';
 import { processContent } from './mpfiles';
 import { logChannel } from './extension';
 
-interface FigureInfo {
-    wd: string;
-    srcFileName: string;
-    outPath: string | undefined;
-    figNumber : number;
-}
-
 interface Previewer {
     panel: vscode.WebviewPanel | undefined;
     srcFile : string;
