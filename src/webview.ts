@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 
-function updateImageUri(panel : vscode.WebviewPanel, image_path : string ) : void {
+function updateImageUri(panel : vscode.WebviewPanel, imagePath : string ) : void {
     
     const onDiskPath = vscode.Uri.file(
-        image_path
+        imagePath
     );
 
     const staticImg = panel.webview.asWebviewUri(onDiskPath);

@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { logChannel } from './extension';
 
 interface BuildOutput {
-    err: cp.ExecFileException | null,
+    err: cp.ExecFileException | null,
     stdout: string,
     outputFiles: string[]
 };
@@ -69,12 +69,12 @@ async function extractOutputFiles(wd : string, output: string) : Promise<string[
             } else {
                 resolve([]);
             }
-        })
+        });
     });
 }
 
 async function buildFigureFile(wd : string, srcName : string) : Promise<BuildOutput> {
-    logChannel.appendLine(` - building "${srcName}" in "${wd}""`)
+    logChannel.appendLine(`INFO: building "${srcName}" in "${wd}""`);
     return new Promise<BuildOutput>((resolve, reject) => {
         let childProcess = cp.execFile(
             "mpost", 
@@ -82,10 +82,11 @@ async function buildFigureFile(wd : string, srcName : string) : Promise<BuildOut
             { cwd: wd }, 
             (err, stdout, stderr) => {
                 extractOutputFiles(wd, srcName).then((files: string[]) => {
+                    logChannel.appendLine(`INFO: output files read: ${files}`);
                     resolve({
                         err: err,
                         stdout: stdout,
-                        outputFiles: err ? [] : files
+                        outputFiles: files,
                     });
                 });
             }
