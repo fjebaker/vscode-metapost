@@ -8,7 +8,7 @@
         "type": "git",
         "url": "https://github.com/fjebaker/vscode-metapost"
     },
-    "version": "0.1.5",
+    "version": "0.1.6",
     "engines": {
         "vscode": "^1.74.0"
     },
@@ -18,7 +18,7 @@
     "contributes": {
         "languages": [
             {
-                "id": "mp",
+                "id": "metapost",
                 "aliases": [
                     "MetaPost",
                     "mp"
@@ -31,8 +31,8 @@
         ],
         "grammars": [
             {
-                "language": "mp",
-                "scopeName": "source.mp",
+                "language": "metapost",
+                "scopeName": "source.metapost",
                 "path": "./syntaxes/mp.tmLanguage.json",
                 "embeddedLanguages": {
                     "meta.embedded.block.latex": "latex",
