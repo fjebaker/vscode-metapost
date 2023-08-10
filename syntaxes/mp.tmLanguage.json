@@ -1,4 +1,5 @@
 {
+	"_credits" : "wordlist adapted from: https://archive.softwareheritage.org/browse/content/sha1_git:e1622629a56b0e2360190c23909db59e2f16656a/?origin_url=https://github.com/freebroccolo/atom-language-metapost&path=grammars/metapost.cson",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "MetaPost",
 	"fileTypes": [
@@ -6,74 +7,140 @@
 	],
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#commands"
 		},
 		{
 			"include": "#comments"
 		},
 		{
-			"include": "#strings"
+			"include": "#constants"
+		},
+		{
+			"include": "#control"
+		},
+		{
+			"include": "#declarations"
+		},
+		{
+			"include": "#macros"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#punctuation"
 		},
 		{
 			"include": "#operators"
 		},
 		{
-			"include": "#numbers"
+			"include": "#strings"
 		},
 		{
 			"include": "#variables"
 		}
 	],
 	"repository": {
-		"keywords": {
+		"commands": {
+			"name": "support.function.builtin.metapost",
+			"match": "\\b(addto|clip|closefrom|cutdraw|dashed|draw|drawarrow|drawdblarrow|errhelp|errmessage|filenametemplate|fill|filldraw|fontmapfile|fontmapline|interim|let|loggingall|message|newinternal|pickup|save|setbounds|shipout|show|showdependencies|showtoken|showvariable|special|tracingall|tracingnone|undraw|unfill|unfilldraw|withcmykcolor|withcolor|withgreyscale|withoutcolor|withpen|withpostscript|withprescript|withrgbcolor|write|to)\\b"
+		},
+		"punctuation": {
 			"patterns": [
+				{"name":"punctuation.terminator.statement.metapost", "match" : ";"},
+				{"name":"punctuation.terminator.scope.metapost", "match" : ":"},
 				{
-					"name": "keyword.control.flow.mp",
-					"match": "\\b(if|else|fi|for|save|within|step|upto|downto|until|endfor|end|beginfig|endfig|begingroup|endgroup|def|vardef|enddef|and|of|or)\\b"
+					"name": "punctuation.whitespace.metapost",
+					"match": "[ \\t]+"
 				},
 				{
-					"name": "keyword.control.transform.mp",
-					"match": "\\b(rotated|scaled|shifted|slanted|transformed|xscaled|yscaled|zscaled|reflectedabout|rotatedaround)\\b"
-				},
-				{
-					"name": "keyword.control.qualifier.mp",
-					"match": "\\b(withcolor|dashed|evenly|withpen|pencircle)\\b"
-				},
-				{
-					"name": "support.type.mp",
-					"match": "\\b(path|pair|numeric|picture|expr|string|boolean)\\b"
-				},
-				{
-					"name": "keyword.control.builtin.mp",
-					"match": "\\b(draw|clip|to|drawarrow|fill)\\b"
-				},
-				{
-					"name": "keyword.operator.mp",
-					"match": "\\b(subpath)\\b"
-				},
-				{
-					"name": "meta.input.mp",
-					"match": "\\b(input)\\s*(\\w+)\\b",
-					"captures": {
+					"begin": "^[ \\t]+\\b",
+					"end": "(?!\\G)",
+					"beginCaptures": {
 						"1": {
-							"name": "keyword.other.input.mp"
-						},
-						"2": {
-							"name": "meta.input.name.mp"
+							"name": "punctuation.whitespace.leading.metapost"
 						}
 					}
+				}
+			]
+		},
+		"constants": {
+			"name": "support.constant.metapost",
+			"match": "\\b(beveled|black|blue|bp|butt|cc|cm|dd|ditto|down|epsilon|evenly|EOF|false|fullcircle|green|halfcircle|identity|in|infinity|left|mitered|mm|cm|mpversion|nullpen|nullpicture|origin|pc|pencircle|pensquare|pt|quartercircle|red|right|rounded|squared|true|unitsquare|up|white|withdots)\\b"
+		},
+		"control": {
+			"name": "keyword.control.metapost",
+			"match": "\\b(beginfig|endfig|vardef|enddef|def|end|if|fi|else|elseif|endfor|for|of|within|forsuffixes|forever|upto|downto|step|until)\\b"
+		},
+		"comments": {
+			"patterns": [
+				{
+					"begin": "(^[ \\t]+)?(?=%)",
+					"end": "(?!\\G)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.whitespace.comment.leading.metapost"
+						}
+					},
+					"patterns": [
+						{
+							"name": "comment.line.percentage.metapost",
+							"begin": "%",
+							"end": "$\\n?",
+							"beginCaptures": {
+								"0":{"name":"punctuation.definition.comment.metapost"}
+							}
+
+						}
+					]
+				}
+			]
+		},
+		"macros":{
+			"name": "support.function.macro.builtin.metapost",
+			"match": "\\b(buildcycle|dashpattern|decr|dotlabel|dotlabels|drawdot|drawoptions|image|incr|label|labels|max|min|thelabel|z)\\b"
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.metapost",
+					"match": "\\b[0-9]+(\\.[0-9]+)?"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.assign.metapost",
+					"match": "(=|:=)"
+				},
+				{
+					"name": "keyword.operator.drawing.metapost",
+					"match": "(\\.\\.|\\.\\.\\.|---?)"
+				},
+				{
+					"name": "keyword.operator.comparison.metapost",
+					"match": "(<|>|<=|>=|<>)"
+				},
+				{
+					"name": "support.function.builtin.metapost",
+					"match": "\\b(abs|and|angle|arclength|arctime|ASCII|bbox|blackpart|bluepart|boolean|bot|bounded|ceiling|center|clipped|cmykcolor|color|colormodel|colorpart|cosd|cutafter|cutbefore|cyanpart|cycle|dashpart|decimal|dir|direction|directionpoint|directiontime|div|dotprod|filled|floor|fontpart|fontsize|glyph|greenpart|greypart|hex|infont|intersectionpoint|intersectiontimes|inverse|known|length|lft|llcorner|lrcorner|magentapart|makepath|makepen|mexp|mlog|mod|normaldeviate|not|numeric|oct|odd|or|pathpart|pen|penoffset|penpart|postcontrol|precontrol|readfrom|redpart|reverse|rgbcolor|rotated|round|rt|scaled|scantokens|shifted|sind|slanted|sqrt|str|string|stroked|subpath|substring|textpart|textual|top|transform|transformed|ulcorner|uniformdeviate|unitvector|unknown|urcorner|whatever|xpart|xscaled|xxpart|xypart|yellowpart|ypart|yscaled|yxpart|yypart|zscaled)\\b"
+				},
+				{
+					"name": "keyword.operator.arithmetic.metapost",
+					"match": "(&|\\*\\*|\\*|\\+-\\+|-(?-)|\\+|\\+\\+|/)"
 				}
 			]
 		},
 		"strings": {
 			"patterns": [
 				{
-					"name": "string.quoted.double.mp",
+					"name": "string.quoted.double.metapost",
 					"begin": "\"",
 					"end": "\"",
 					"patterns": [
 						{
-							"name": "constant.character.escape.mp",
+							"name": "constant.character.escape.metapost",
 							"match": "\\\\."
 						}
 					]
@@ -102,70 +169,36 @@
 				}
 			]
 		},
-		"numbers": {
-			"patterns": [
-				{
-					"name": "constant.numeric.mp",
-					"match": "\\b[0-9]+(\\.[0-9]+)?"
-				},
-				{
-					"name": "constant.language.mp",
-					"match": "\\b(whatever|origin|up|right|down|left|cycle)\\b"
-				}
-			]
-		},
-		"operators": {
-			"patterns": [
-				{
-					"name": "keyword.operator.arithmetic.mp",
-					"match": "(&|\\*\\*|\\*|\\+-\\+|-|\\+|\\+\\+|/)"
-				},
-				{
-					"name": "keyword.operator.assign.mp",
-					"match": "(=|:=)"
-				},
-				{
-					"name": "keyword.operator.drawing.mp",
-					"match": "(\\.\\.|\\.\\.\\.|--)"
-				},
-				{
-					"name": "keyword.operator.comparison.mp",
-					"match": "(<|>|<=|>=|<>)"
-				}
-			]
-		},
-		"comments": {
-			"name":	"comment.line",
-			"match": "%.*$"
+		"declarations": {
+			"name": "support.type.metapost",
+			"match": "\\b(boolean|cmykcolor|char|color|expr|numeric|pair|path|pen|point|picture|rgbcolor|string|transform)\\b"
 		},
 		"variables": {
 			"patterns": [
 				{
-					"name": "constant.character.reserved.mp",
-					"match": "\\b(beveled|bp|butt|cc|cm|dd|epsilon|in|infinity|miltered|mm|pc|pt|rounded|squared)\\b"
+					"name": "support.type.numeric.metapost",
+					"match": "\\b(ahangle|ahlength|bboxmargin|charcode|day|defaultcolormodel|defaultpen|defaultscale|dotlabeldiam|hour|hppp|labeloffset|linecap|linejoin|minute|miterlimit|month|mpprocset|numberprecision|pausing|prologues|restoreclipcolor|showstopping|time|tracingcapsules|tracingchoices|tracingcommands|tracingequations|tracinglostchars|tracingmacros|tracingonline|tracingoutput|tracingrestores|tracingspecs|tracingstats|tracingtitles|troffmode|truecorners|vppp|warningcheck|year|mm)\\b"
 				},
 				{
-					"name": "support.function.unaryop.mp",
-					"match": "\\b(abs|angle|arclength|bbox|blackpart|bluepart|bot|bounded|ceiling|center|char|clipped|colormodel|cods|cyanpart|dashpart|decimal|dir|floor|filled|fontpart|fontsize|greenpart|greypart|hex|inverse|known|length|lft|llcorner|lrcorner|magentapart|makepath|makepen|mexp|mlog|not|oct|odd|pathpart|penpart|readfrom|redfpart|reverse|round|rt|sind|sqrt|stroked|textpart|textual|top|ulcorner|uniformdeviate|unitvector|unknown|urcorner|xpart|xxpart|xypart|yellowpart|ypart|yxpart|yypart)\\b"
+					"name": "support.type.string.metapost",
+					"match": "\\b(jobname|numbersystem|outputfilename|outputformat|outputformatoptions|outputtemplate)\\b"
 				},
 				{
-					"name": "support.function.call.mp",
+					"name": "support.function.metapost",
 					"match": "\\b[a-zA-Z]+(?=\\()"
 				},
 				{
-					"match": "\\b([_a-zA-Z]+[_a-zA-Z0-9\\.#]*)\\.",
-					"captures": {
-						"1": {
-							"name": "support.class.mp"
-						}
-					}
+					"name": "support.constant.metapost",
+					"match": "\\b(background|currentpen|currentpicture|cuttings|defaultfont|extra_beginfig|extra_endfig)\\b"
 				},
 				{
-					"name": "variable.mp",
-					"match": "[_a-zA-Z]+[_a-zA-Z0-9\\.#]*"
+					"match": "\\b\\w+(\\d+)?\\b",
+					"captures": {
+						"0":{"name":"support.variable.other.metapost"}
+					}
 				}
 			]
 		}
 	},
-	"scopeName": "source.mp"
+	"scopeName": "source.metapost"
 }
